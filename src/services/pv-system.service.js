@@ -8,21 +8,21 @@ const LABEL_PREMISE = "PREMISE";
 
 module.exports = {
 
-  get = () => {
+  get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))
   },
   
-  create = (data) => {
+  create: (data) => {
     return session.run("CREATE (n: ${LABEL} {name: {nameValue}}) RETURN n", {nameValue: data.name})   
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))       
   },
   
-  locatedAt = (pvSystemName, premiseName) => {
+  locatedAt: (pvSystemName, premiseName) => {
     return session.run(`MATCH (a: ${LABEL} {name: {pvNameValue}}), (b: ${LABEL_PREMISE} {name:{pNameValue}}) MERGE (a)-[r:located_at]->(b)`, {pvNameValue: pvSystemName, pNameValue: premiseName})   
       .then(service.resolve())
       .catch(service.reject())

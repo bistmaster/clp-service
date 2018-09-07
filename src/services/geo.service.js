@@ -7,14 +7,14 @@ const LABEL = "GEO";
 
 module.exports = {
 
-  get = () => {
+  get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))
   },
   
-  create = (data) => {
+  create: (data) => {
     return session.run(`CREATE (n: ${LABEL} {lat: {latVal}, long: {longVal}}) RETURN n`, {latVal: data.lat, longVal: data.long})   
       .then(service.resolve())
       .catch(service.reject())

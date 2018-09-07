@@ -7,7 +7,7 @@ const LABEL = "PREMISE";
 
 module.exports = {
   
-  get = () => {
+  get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())
       .catch(service.reject())
@@ -15,7 +15,7 @@ module.exports = {
   },
   
   
-  create = (data) => {
+  create: (data) => {
     return session.run(`CREATE (n: ${LABEL} {name: {nameValue}}) RETURN n`, {nameValue: data.name})   
       .then(service.resolve())
       .catch(service.reject())

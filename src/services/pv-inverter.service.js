@@ -9,21 +9,21 @@ const LABEL_PV_SYSTEM = "PV_SYSTEM";
 
 module.exports = {
 
-  get = () => {
+  get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))
   },
   
-  create = (data) => {
+  create: (data) => {
     return session.run(`CREATE (n: ${LABEL} {serial: {serialValue}, model:{modelValue}, capacity:{capacityValue}}) RETURN n`, {serialValue: data.serial, modelValue: data.model, capacityValue: data.capacity})   
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))       
   },
   
-  belongsTo = (pvSerial, pvSystemName) => {
+  belongsTo: (pvSerial, pvSystemName) => {
     return session.run(`MATCH (a: ${LABEL} {serial: {serialValue}}), (b: ${LABEL_PV_SYSTEM} {name:{nameValue}}) MERGE (a)-[r:belong_to]->(b)`, {serialValue: pvSerial, nameValue: pvSystemName})
       .then(service.resolve())
       .catch(service.reject())

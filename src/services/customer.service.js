@@ -9,7 +9,7 @@ const LABEL_PV_SYSTEM = "PV_SYSTEM";
 
 module.export = {
   
-  get = () => {
+  get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())
       .catch(service.reject())
@@ -17,7 +17,7 @@ module.export = {
   },
   
   
-  create = (data) => {
+  create: (data) => {
     data.userId =  uuidv4();
     return session.run(`CREATE (n: ${LABEL} {first_name: {firstName}, last_name:{lastName}, user_id: {userId}}) RETURN n`, {firstName: data.firstName, lastName: data.lastName, userId: data.userId})   
       .then(service.resolve())
@@ -26,7 +26,7 @@ module.export = {
   },
   
   
-  ownPvSystem = (userId, pvSystemName) => {
+  ownPvSystem: (userId, pvSystemName) => {
     return session.run(`MATCH (a: ${LABEL} {user_id: {userId}}), (b: ${LABEL_PV_SYSTEM} {name:{pvSystemName}}) MERGE (a)-[r:owned_by]->(b)`, {userId, pvSystemName})   
       .then(service.resolve())
       .catch(service.reject())

@@ -7,14 +7,14 @@ const LABEL = "ADDRESS";
 
 module.exports = {
 
-  get = () => {
+  get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))
   },
 
-  create = (data) => {
+  create: () => {
     const params = {
       floorVal: data.floor,
       buildingVal: data.building,
