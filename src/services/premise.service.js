@@ -6,8 +6,16 @@ const session = driver.session();
 const service = require('../utils/service-promise-handler');
 const LABEL = "PREMISE";
 
+/**
+ *  Premise module.
+ *  @module services/premise
+ */
 module.exports = {
   
+  /**
+   * Get all the premises
+   * @return {object} Promise
+   */    
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())

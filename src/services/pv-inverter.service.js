@@ -8,8 +8,16 @@ const service = require('../utils/service-promise-handler');
 const LABEL = "PV_INVERTER";
 const LABEL_PV_SYSTEM = "PV_SYSTEM";
 
+/**
+ *  PV System module.
+ *  @module services/pv-inverter
+ */
 module.exports = {
 
+  /**
+   * Get all the pv-inverter
+   * @return {object} Promise
+   */  
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())
@@ -17,6 +25,11 @@ module.exports = {
       .finally(service.finally(session, driver))
   },
   
+  /**
+   * Create pv-inverter
+   * @param {object} data name of the pv-inverter
+   * @return {object} Promise
+   */  
   create: (data) => {
     return session.run(`CREATE (n: ${LABEL} {serial: {serialValue}, model:{modelValue}, capacity:{capacityValue}}) RETURN n`, {serialValue: data.serial, modelValue: data.model, capacityValue: data.capacity})   
       .then(service.resolve())
@@ -24,6 +37,12 @@ module.exports = {
       .finally(service.finally(session, driver))       
   },
   
+  /**
+   * Assign pv-inverter to a pv-system
+   * @param {string} pvSerial pv serial code
+   * @param {string} pvSystemName pv system name
+   * @return {object} Promise 
+   */  
   belongsTo: (pvSerial, pvSystemName) => {
     return session.run(`MATCH (a: ${LABEL} {serial: {serialValue}}), (b: ${LABEL_PV_SYSTEM} {name:{nameValue}}) MERGE (a)-[r:belong_to]->(b)`, {serialValue: pvSerial, nameValue: pvSystemName})
       .then(service.resolve())

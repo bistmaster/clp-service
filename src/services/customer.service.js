@@ -8,8 +8,16 @@ const service = require('../utils/service-promise-handler');
 const LABEL = "CUSTOMER";
 const LABEL_PV_SYSTEM = "PV_SYSTEM";
 
+/**
+ *  Customer module.
+ *  @module services/customer
+ */
 module.exports = {
   
+  /**
+   * Get all the customers
+   * @return {object} Promise
+   */  
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())

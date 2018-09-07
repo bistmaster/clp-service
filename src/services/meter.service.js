@@ -6,8 +6,16 @@ const session = driver.session();
 const service = require('../utils/service-promise-handler');
 const LABEL = "METER";
 
+/**
+ *  Meter module.
+ *  @module services/meter
+ */
 module.exports = {
 
+  /**
+   * Get all the meter
+   * @return {object} Promise
+   */    
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())

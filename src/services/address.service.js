@@ -6,8 +6,16 @@ const session = driver.session();
 const service = require('../utils/service-promise-handler');
 const LABEL = "ADDRESS";
 
+/**
+ *  Address module.
+ *  @module services/address
+ */
 module.exports = {
 
+  /**
+   * Get all the addresses
+   * @return {object} Promise
+   */  
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())
@@ -15,7 +23,12 @@ module.exports = {
       .finally(service.finally(session, driver))
   },
 
-  create: () => {
+  /**
+   * Create an address
+   * @param {object} data contains the data of the address 
+   * @return {object} Promise
+   */
+  create: (data) => {
     const params = {
       floorVal: data.floor,
       buildingVal: data.building,

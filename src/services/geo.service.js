@@ -6,8 +6,16 @@ const session = driver.session();
 const service = require('../utils/service-promise-handler');
 const LABEL = "GEO";
 
+/**
+ *  Geo module.
+ *  @module services/geo
+ */
 module.exports = {
 
+  /**
+   * Get all the geolocation
+   * @return {object} Promise
+   */    
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())

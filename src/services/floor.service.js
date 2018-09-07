@@ -6,8 +6,17 @@ const session = driver.session();
 const service = require('../utils/service-promise-handler');
 const LABEL = "FLOOR";
 
+/**
+ *  Floor module.
+ *  @module services/floor
+ */
 module.exports = {
 
+
+  /**
+   * Get all the floors
+   * @return {object} Promise
+   */    
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
       .then(service.resolve())
