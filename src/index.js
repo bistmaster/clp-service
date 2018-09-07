@@ -8,7 +8,7 @@ const Meter = require('./services/meter.service');
 const Phase = require('./services/phase.service');
 const Premise = require('./services/premise.service');
 const PVInverter = require('./services/pv-inverter.service');
-const PVInverter = require('./services/pv-system.service');
+const PVSystem = require('./services/pv-system.service');
 
 module.exports = {
     Customer,
@@ -21,5 +21,5 @@ module.exports = {
     Phase,
     Premise,
     PVInverter,
-    PVInverter
+    PVSystem
 }
