@@ -1,8 +1,9 @@
 
 'use strict';
 const uuidv4 = require('uuid/v4');
-const session = require('../db/connect').getSession();
-const driver = require('../db/connect').getDriver();
+const neo4j = require('../db');
+const driver = neo4j.connect();
+const session = driver.session();
 const service = require('../utils/service-promise-handler');
 const LABEL = "CUSTOMER";
 const LABEL_PV_SYSTEM = "PV_SYSTEM";

@@ -1,6 +1,6 @@
 {
   "name": "clp-ems-service",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CLP EMS Service",
   "main": "src/index.js",
   "scripts": {

@@ -1,7 +1,8 @@
 
 'use strict';
-const session = require('../db/connect').getSession();
-const driver = require('../db/connect').getDriver();
+const neo4j = require('../db');
+const driver = neo4j.connect();
+const session = driver.session();
 const service = require('../utils/service-promise-handler');
 
 const LABEL = "PV_INVERTER";
