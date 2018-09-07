@@ -8,7 +8,7 @@ const service = require('../utils/service-promise-handler');
 const LABEL = "CUSTOMER";
 const LABEL_PV_SYSTEM = "PV_SYSTEM";
 
-module.export = {
+module.exports = {
   
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
