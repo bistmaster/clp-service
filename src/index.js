@@ -1,4 +1,3 @@
-const neo4j = require('./db/connect');
 const Customer = require('./services/customer.service');
 const Address = require('./services/address.service');
 const Building = require('./services/building.service');
