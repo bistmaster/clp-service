@@ -2,7 +2,7 @@
 
 exports.resolve = () => {
   return (data) => {
-    return Promise.resolve(data.records);
+    return Promise.resolve(data);
   }
 }
 

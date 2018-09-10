@@ -14,7 +14,7 @@ module.exports = {
 
   /**
    * Get all the addresses
-   * @return {object} Promise
+   *  @return {CLPProperty} return of object of Promise
    */  
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
@@ -26,7 +26,7 @@ module.exports = {
   /**
    * Create an address
    * @param {object} data contains the data of the address 
-   * @return {object} Promise
+   *  @return {CLPProperty} return of object of Promise
    */
   create: (data) => {
     const params = {

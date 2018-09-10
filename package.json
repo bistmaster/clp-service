@@ -1,11 +1,11 @@
 {
   "name": "clp-ems-service",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "CLP EMS Service",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "./node_modules/.bin/jsdoc src/services/"
+    "docs": "./node_modules/.bin/jsdoc src/services/*"
   },
   "author": "bistmaster",
   "license": "ISC",

@@ -15,7 +15,8 @@ module.exports = {
 
   /**
    * Get all the floors
-   * @return {object} Promise
+   * 
+   *  @return {CLPProperty} return of object of Promise
    */    
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
@@ -24,6 +25,11 @@ module.exports = {
       .finally(service.finally(session, driver))
   },
   
+  /**
+   * Create a floor 
+   * @param {object} data Contain the name of the floor and location
+   *  @return {CLPProperty} return of object of Promise
+   */
   create: (data) => {
     return session.run(`CREATE (n: ${LABEL} {name: {nameValue}}) RETURN n`, {nameValue: data.name})   
       .then(service.resolve())

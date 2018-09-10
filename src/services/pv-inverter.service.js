@@ -26,9 +26,9 @@ module.exports = {
   },
   
   /**
-   * Create pv-inverter
+   * @function create Create pv-inverter
    * @param {object} data name of the pv-inverter
-   * @return {object} Promise
+   *  @return {CLPProperty} return of object of Promise
    */  
   create: (data) => {
     return session.run(`CREATE (n: ${LABEL} {serial: {serialValue}, model:{modelValue}, capacity:{capacityValue}}) RETURN n`, {serialValue: data.serial, modelValue: data.model, capacityValue: data.capacity})   
@@ -38,10 +38,10 @@ module.exports = {
   },
   
   /**
-   * Assign pv-inverter to a pv-system
+   * @function belongsTo Assign pv-inverter to a pv-system
    * @param {string} pvSerial pv serial code
    * @param {string} pvSystemName pv system name
-   * @return {object} Promise 
+   *  @return {CLPProperty} return of object of Promise 
    */  
   belongsTo: (pvSerial, pvSystemName) => {
     return session.run(`MATCH (a: ${LABEL} {serial: {serialValue}}), (b: ${LABEL_PV_SYSTEM} {name:{nameValue}}) MERGE (a)-[r:belong_to]->(b)`, {serialValue: pvSerial, nameValue: pvSystemName})

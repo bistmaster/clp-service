@@ -14,7 +14,7 @@ module.exports = {
 
   /**
    * Get all the installation
-   * @return {object} Promise
+   *  @return {CLPProperty} return of object of Promise
    */    
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
