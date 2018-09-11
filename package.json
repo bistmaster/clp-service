@@ -1,13 +1,13 @@
 {
-  "name": "clp-ems-service",
+  "name": "clp-ems-lib",
   "version": "1.0.6",
-  "description": "CLP EMS Service",
+  "description": "CLP EMS Library",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "./node_modules/.bin/jsdoc src/services/*"
   },
-  "author": "bistmaster",
+  "author": "Viseo",
   "license": "ISC",
   "dependencies": {
     "neo4j-driver": "^1.6.3",
