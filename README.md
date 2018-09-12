@@ -58,4 +58,18 @@ All the methods returns a `Promise`
             console.log(err)
         })        
 ```
+## How to release
 
+1. Create a fix or feature branch
+2. `npm run build`
+3. `npm run bumpVersion`
+4. Create pull or merge request
+5. npm tag -a vX.X.X -m 'release: vX.X.X'
+
+## Install
+
+This project is private project not publish to the public npm registry.
+
+To add as a dependency, you need to add to your package.json the library as follow (with the correct #tag version):
+
+    "clp-ems-lib": "git+https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/clp-ems-lib#vX.X.X"
