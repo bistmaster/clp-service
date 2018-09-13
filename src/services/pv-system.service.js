@@ -30,7 +30,7 @@ module.exports = {
    * @return {CLPProperty} return of object of Promise
    */
   create: (data) => {
-    return session.run(`CREATE (n: ${LABEL} {name: {nameValue}}) RETURN n`, {nameValue: data.name})   
+    return session.run(`CREATE (n: ${LABEL} {name: {nameValue}}) RETURN n`, {nameValue: data.name})  
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))       
