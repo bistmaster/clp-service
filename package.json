@@ -3,11 +3,17 @@
   "version": "0.0.1",
   "private": true,
   "description": "CLP EMS Library",
-  "main": "src/index.js",
+  "main": "",
+  "engines": {
+    "node": ">=6"
+  },
   "repository": {
     "type": "git",
     "url": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/clp-ems-lib"
   },
+  "files":[
+    "lib"
+  ],
   "dependencies": {
     "neo4j-driver": "^1.6.3",
     "uuid": "^3.3.2",
