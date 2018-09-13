@@ -13,8 +13,8 @@ const LABEL = "ADDRESS";
 module.exports = {
 
   /**
-   * Get all the addresses
-   *  @return {CLPProperty} return of object of Promise
+   * @function get Get all the addresses
+   * @return {CLPProperty} return of object of Promise
    */  
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
@@ -24,12 +24,13 @@ module.exports = {
   },
 
   /**
-   * Create an address
+   * @function create Create an address
    * @param {object} data contains the data of the address 
-   *  @return {CLPProperty} return of object of Promise
+   * @return {CLPProperty} return of object of Promise
    */
   create: (data) => {
     const params = {
+      name: data.name,
       floorVal: data.floor,
       buildingVal: data.building,
       street1Val: data.street1,

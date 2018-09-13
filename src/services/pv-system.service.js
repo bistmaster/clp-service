@@ -14,7 +14,7 @@ const LABEL_PREMISE = "PREMISE";
 module.exports = {
 
   /**
-   * Get all the pv-system
+   * @function get Get all the pv-system
    * @return {object} Promise
    */
   get: () => {
