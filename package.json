@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/clp-ems-lib"
   },
-  "files":[
+  "files": [
     "lib"
   ],
   "dependencies": {
