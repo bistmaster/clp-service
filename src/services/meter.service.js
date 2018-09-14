@@ -5,6 +5,7 @@ const driver = neo4j.connect();
 const session = driver.session();
 const service = require('../utils/service-promise-handler');
 const LABEL = "METER";
+const LABEL_ACCOUNT = "BILLING_ACCOUNT";
 
 /**
  *  Meter module.
@@ -24,8 +25,8 @@ module.exports = {
   },
   
   /**
-   * @function create Create a installation  
-   * @param {object} data Contain the name of the installation details
+   * @function create Create a meter  
+   * @param {object} data Contain the name of the meter details
    * @return {CLPProperty} return of object of Promise
    */   
   create: (data) => {
@@ -36,13 +37,13 @@ module.exports = {
   },
 
   /**
-   * @function belongsTo Assign installation to a premise
-   * @param {string} premiseName premise name
-   * @param {string} installationName installation name
+   * @function belongsTo Assign meter to an account
+   * @param {string} accountNo account billing information
+   * @param {string} meterName meter name
    * @return {CLPProperty} return of object of Promise 
    */  
-  belongsTo: (premiseName, installationName) => {
-    return session.run(`MATCH (a: ${LABEL} {name:{installationNameVal}}), (b: ${LABEL_PREMISE} {name:{premiseNameVal}}) MERGE (a)-[r:belong_to]->(b)`, {installationNameVal: installationName, premiseNameVal:premiseName})
+  belongsTo: (accountNo, meterName) => {
+    return session.run(`MATCH (a: ${LABEL} {name:{meterNameVal}}), (b: ${LABEL_ACCOUNT} {accountNo:{accountNoVal}}) MERGE (a)-[r:belong_to]->(b)`, {meterNameVal: meterName, accountNoVal:accountNo})
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))     
