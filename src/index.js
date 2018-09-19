@@ -9,9 +9,11 @@ const Phase = require('./services/phase.service');
 const Premise = require('./services/premise.service');
 const PVInverter = require('./services/pv-inverter.service');
 const PVSystem = require('./services/pv-system.service');
+const Account = require('./services/account.service');
 
 module.exports = {
     Customer,
+    Account,
     Address,
     Building,
     Floor,
