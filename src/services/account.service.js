@@ -10,7 +10,7 @@ const LABEL_CUSTOMER = "CUSTOMER";
 
 /**
  *  Floor module.
- *  @module services/floor
+ *  @module services/account
  */
 module.exports = {
 
