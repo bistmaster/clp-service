@@ -10,6 +10,7 @@ const Premise = require('./services/premise.service');
 const PVInverter = require('./services/pv-inverter.service');
 const PVSystem = require('./services/pv-system.service');
 const Account = require('./services/account.service');
+const KWH = require('./services/kwh.service');
 
 module.exports = {
     Customer,
@@ -23,5 +24,6 @@ module.exports = {
     Phase,
     Premise,
     PVInverter,
-    PVSystem
+    PVSystem,
+    KWH
 }
