@@ -32,10 +32,17 @@ module.exports = {
    * @return {CLPProperty} return of object of Promise
    */
   create: (data) => {
-    return session.run(`CREATE (n: ${LABEL} {name: {nameValue}}) RETURN n`, {nameValue: data.name})   
+    const parameters = {
+      nameValue : data.name,
+      forecastVal: data.forecast,
+      measurementVal: data.measurement,
+      timestampVal: timestamp
+    },
+
+    return session.run(`CREATE (n: ${LABEL} {name: {nameValue}, timestamp:{timestampVal}, day_ahead_forcast:{forecastVal}, real_time_measurement:{measurementVa}}) RETURN n`, parameters)   
       .then(service.resolve())
       .catch(service.reject())
-      .finally(service.finally(session, driver))       
+      .finally(service.finally(session, driver))        
   },
 
   /**

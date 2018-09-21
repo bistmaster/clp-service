@@ -1,5 +1,6 @@
 
 'use strict';
+const uuidv4 = require('uuid/v4');
 const neo4j = require('../db');
 const driver = neo4j.connect();
 const session = driver.session();
@@ -30,7 +31,16 @@ module.exports = {
    * @return {CLPProperty} return of object of Promise
    */   
   create: (data) => {
-    return session.run(`CREATE (n: ${LABEL} {name: {nameValue}}) RETURN n`, {nameValue: data.name})   
+
+    const parameters = {
+      nameValue : data.name,
+      meterIdVal: data.meterId == data.meterId || uuidv4(),
+      forecastVal: data.forecast,
+      measurementVal: data.measurement,
+      timestampVal: timestamp
+    },
+
+    return session.run(`CREATE (n: ${LABEL} {name: {nameValue}, timestamp:{timestampVal}, meterId:{meterIdVal}, day_ahead_forcast:{forecastVal}, real_time_measurement:{measurementVa}}) RETURN n.meterId`, parameters)   
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))       
