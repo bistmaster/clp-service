@@ -38,7 +38,7 @@ module.exports = {
       forecastVal: data.forecast,
       measurementVal: data.measurement,
       timestampVal: timestamp
-    },
+    }
 
     return session.run(`CREATE (n: ${LABEL} {name: {nameValue}, timestamp:{timestampVal}, meterId:{meterIdVal}, day_ahead_forcast:{forecastVal}, real_time_measurement:{measurementVa}}) RETURN n.meterId`, parameters)   
       .then(service.resolve())
