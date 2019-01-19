@@ -7,7 +7,8 @@ const service = require('../utils/service-promise-handler');
 const LABEL = "KWH";
 const LABEL_METER = "METER";
 const LABEL_TIMESTAMP = "TIMESTAMP";
-
+const LABEL_MONTH = "MONTH";
+const LABEL_YEAR = "YEAR";
 /**
  *  KWH module.
  *  @module services/kwh
@@ -38,7 +39,7 @@ module.exports = {
       measurementVal: data.measurement,
       timestampVal: data.timestamp
     }
-
+    
     return session.run(`CREATE (n: ${LABEL} {name: {nameValue}, timestamp:{timestampVal}, day_ahead_forcast:{forecastVal}, real_time_measurement:{measurementVal}}) RETURN n`, parameters)   
       .then(service.resolve())
       .catch(service.reject())
@@ -64,8 +65,26 @@ module.exports = {
    * @param {string} kwhName kwh name
    * @return {CLPProperty} return of object of Promise 
    */  
-  readAtTimestamp: (timeId, kwhName) => {
-    return session.run(`MATCH (a: ${LABEL} {name:{kwhNameVal}}), (b: ${LABEL_TIMESTAMP} {timeId:{timeIdVal}}) MERGE (a)-[r:read_at]->(b)`, {kwhNameVal: kwhName, timeIdVal:timeId})
+  readAtTimestamp: (timestamp, kwhName) => {
+    return session.run(`MATCH (a: ${LABEL} {name:{kwhNameVal}}), (b: ${LABEL_TIMESTAMP} {timeId:{timestampVal}}) MERGE (a)-[r:read_at]->(b)`, {kwhNameVal: kwhName, timestampVal:timestamp})
+      .then(service.resolve())
+      .catch(service.reject())
+      .finally(service.finally(session, driver))     
+  },
+
+
+  belongsToMonth: (timestamp) => {
+    const month = new Date(timestamp).getMonth();
+    return session.run(`MATCH (a: ${LABEL_TIMESTAMP} {timestamp:{timestampVal}}), (b: ${LABEL_MONTH} {month:{monthVal}}) MERGE (a)-[r:belong_to]->(b)`, {timestampVal: timestamp, monthVal:month})
+      .then(service.resolve())
+      .catch(service.reject())
+      .finally(service.finally(session, driver))     
+  },
+
+  belongsToYear: (timestamp) => {
+    const month = new Date(timestamp).getMonth();
+    const year = new Date(timestamp).getFullYear();
+    return session.run(`MATCH (a: ${LABEL_MONTH} {month:{monthVal}}), (b: ${LABEL_YEAR} {year:{yearVal}}) MERGE (a)-[r:belong_to]->(b)`, {monthVal: month, yearVal:year})
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))     
