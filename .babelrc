@@ -1,0 +1,13 @@
+{
+    "presets": [
+      "latest",
+      "bluebird"
+    ],
+    "plugins": [
+      "transform-async-to-bluebird",
+      "transform-promise-to-bluebird",
+      "transform-runtime"
+    ],
+    "sourceMaps": true
+  }
+  

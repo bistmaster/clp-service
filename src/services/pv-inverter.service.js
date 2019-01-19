@@ -7,6 +7,7 @@ const service = require('../utils/service-promise-handler');
 
 const LABEL = "PV_INVERTER";
 const LABEL_PV_SYSTEM = "PV_SYSTEM";
+const LABEL_GEO = "GEO";
 
 /**
  *  PV System module.
@@ -15,7 +16,7 @@ const LABEL_PV_SYSTEM = "PV_SYSTEM";
 module.exports = {
 
   /**
-   * Get all the pv-inverter
+   * @function get Get all the pv-inverter
    * @return {object} Promise
    */  
   get: () => {
@@ -41,14 +42,27 @@ module.exports = {
    * @function belongsTo Assign pv-inverter to a pv-system
    * @param {string} pvSerial pv serial code
    * @param {string} pvSystemName pv system name
-   *  @return {CLPProperty} return of object of Promise 
+   * @return {CLPProperty} return of object of Promise 
    */  
   belongsTo: (pvSerial, pvSystemName) => {
     return session.run(`MATCH (a: ${LABEL} {serial: {serialValue}}), (b: ${LABEL_PV_SYSTEM} {name:{nameValue}}) MERGE (a)-[r:belong_to]->(b)`, {serialValue: pvSerial, nameValue: pvSystemName})
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))  
-  }  
+  },
+  
+  /**
+   * @function locatedAt assign pv-inverter to geolocation
+   * @param {string} geoName geo name
+   * @param {string} pvInverterName pv-inverter name
+   * @return {CLPProperty} return of object of Promise 
+   */  
+  locatedAt: (geoName, pvInverterName) => {
+    return session.run(`MATCH (a: ${LABEL} {name:{pvInverterNameVal}}), (b: ${LABEL_GEO} {name:{geoNameVal}}) MERGE (a)-[r:located_at]->(b)`, {pvInverterNameVal: pvInverterName, geoNameVal: geoName})
+      .then(service.resolve())
+      .catch(service.reject())
+      .finally(service.finally(session, driver))     
+  },   
 
 }
 

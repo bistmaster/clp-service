@@ -1,5 +1,5 @@
 const neo4j = require('neo4j-driver').v1;
-const config = require(`../config/${process.env.NODE_ENV || 'development'}.env`);
+const config = require(`../config/${process.env.NODE_ENV || 'dev'}.env`);
 
 module.exports = {
     connect: () => {

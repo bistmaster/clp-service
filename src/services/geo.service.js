@@ -13,8 +13,8 @@ const LABEL = "GEO";
 module.exports = {
 
   /**
-   * Get all the geolocation
-   *  @return {CLPProperty} return of object of Promise
+   * @function get Get all the geolocation
+   * @return {CLPProperty} return of object of Promise
    */    
   get: () => {
     return session.run(`MATCH (n: ${LABEL}) RETURN n`)
@@ -23,10 +23,15 @@ module.exports = {
       .finally(service.finally(session, driver))
   },
   
+  /**
+   * @function create Create a geolocation  
+   * @param {object} data Contain the name of the geo details
+   * @return {CLPProperty} return of object of Promise
+   */  
   create: (data) => {
-    return session.run(`CREATE (n: ${LABEL} {lat: {latVal}, long: {longVal}}) RETURN n`, {latVal: data.lat, longVal: data.long})   
+    return session.run(`CREATE (n: ${LABEL} {lat: {latVal}, long: {longVal}, name:{geoNameVal}}) RETURN n`, {latVal: data.lat, longVal: data.long, geoNameVal: data.name})   
       .then(service.resolve())
       .catch(service.reject())
-      .finally(service.finally(session, driver))       
+      .finally(service.finally(session, driver))
   }
 }

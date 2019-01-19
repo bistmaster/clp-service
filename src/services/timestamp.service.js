@@ -1,20 +1,22 @@
 
 'use strict';
+const uuidv4 = require('uuid/v4');
 const neo4j = require('../db');
 const driver = neo4j.connect();
 const session = driver.session();
 const service = require('../utils/service-promise-handler');
-const LABEL = "PREMISE";
-const LABEL_FLOOR = "FLOOR";
+const LABEL = "TIMESTAMP";
+const LABEL_MONTH = "MONTH";
 
 /**
- *  Premise module.
- *  @module services/premise
+ *  Timestamp module.
+ *  @module services/kwh
  */
 module.exports = {
-  
+
+
   /**
-   * @function get Get all the premises
+   * @function get Get all the timestamp
    * @return {CLPProperty} return of object of Promise
    */    
   get: () => {
@@ -25,27 +27,29 @@ module.exports = {
   },
   
   /**
-   * @function create Create an premise
-   * @param {object} data contains the data of the premise name 
+   * @function create Create a timestamp 
+   * @param {object} data Contain the name of the floor and location
    * @return {CLPProperty} return of object of Promise
-   */  
+   */
   create: (data) => {
-    return session.run(`CREATE (n: ${LABEL} {name: {nameValue}}) RETURN n`, {nameValue: data.name})   
+    data.timeId = data.timeId || uuidv4();
+    return session.run(`CREATE (n: ${LABEL} {timestamp:{timestampVal}, name: {nameValue}}) RETURN n`, {timestampVal: data.timestamp, nameValue: data.name})   
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))       
   },
 
   /**
-   * @function belongsTo Assign premise to a floor
-   * @param {string} floorName floor name
-   * @param {string} premiseName premise name
+   * @function belongsTo assign timestamp to a month
+   * @param {string} month meter name
+   * @param {string} timeId kwh name
    * @return {CLPProperty} return of object of Promise 
    */  
-  belongsTo: (floorName, premiseName) => {
-    return session.run(`MATCH (a: ${LABEL} {name:{premiseNameVal}}), (b: ${LABEL_FLOOR} {name:{floorNameVal}}) MERGE (a)-[r:belong_to]->(b)`, {premiseNameVal: premiseName, floorNameVal:floorName})
+  belongsTo: (month, timeId) => {
+    return session.run(`MATCH (a: ${LABEL} {timeId:{timeIdVal}}), (b: ${LABEL_MONTH} {month:{monthVal}}) MERGE (a)-[r:belong_to]->(b)`, {timeIdVal: timeId, monthVal:month})
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))     
-  }
-} 
+  },
+
+}

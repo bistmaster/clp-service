@@ -13,7 +13,7 @@ const LABEL = "PHASE";
 module.exports = {
   
   /**
-   * Get all the phase
+   * @function get Get all the phase
    * @return {CLPProperty} return of object of Promise
    */    
   get: () => {
@@ -23,6 +23,11 @@ module.exports = {
       .finally(service.finally(session, driver))
   },
   
+  /**
+   * @function create Create a phase 
+   * @param {object} data Contain the name of the phase
+   * @return {CLPProperty} return of object of Promise
+   */  
   create: (data) => {
     return session.run(`CREATE (n: ${LABEL} {name: {nameValue}}) RETURN n`, {nameValue: data.name})   
       .then(service.resolve())

@@ -1,19 +1,49 @@
 {
-  "name": "clp-ems-service",
-  "version": "1.0.6",
-  "description": "CLP EMS Service",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "./node_modules/.bin/jsdoc src/services/*"
+  "name": "clp-ems-lib",
+  "version": "0.0.16",
+  "private": true,
+  "description": "CLP EMS Library",
+  "main": "",
+  "engines": {
+    "node": ">=6"
   },
-  "author": "bistmaster",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/clp-ems-lib"
+  },
+  "files": [
+    "lib"
+  ],
   "dependencies": {
     "neo4j-driver": "^1.6.3",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "bluebird": "^3.5.0",
+    "lambda-loggers": "git+https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/lambda-loggers#v0.0.1",
+    "cicd-scripts": "git+https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/cicd-scripts#v0.0.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-plugin-transform-async-to-bluebird": "^1.1.0",
+    "babel-plugin-transform-promise-to-bluebird": "^1.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-bluebird": "^1.0.1",
+    "babel-preset-latest": "^6.24.1",
+    "pre-commit": "^1.1.2",
     "jsdoc": "^3.5.5"
-  }
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register --recursive src/**/*.test.js src/**/**/*.test.js",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --compilers js:babel-core/register --colors --recursive src/**/*.test.js src/**/**/*.test.js",
+    "build": "rm -rf lib && babel ./src -d ./lib --ignore *.test.js,*.md",
+    "eslint": "sh node_modules/cicd-scripts/commit/pre-commit-eslint.sh",
+    "addBuild": "npm run build && git add .",
+    "bumpVersion": "npm --no-git-tag-version version patch"
+  },
+  "pre-commit": [
+    "eslint"
+  ],
+  "author": "Viseo",
+  "license": "ISC",
+  "homepage": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/clp-ems-lib"
 }
