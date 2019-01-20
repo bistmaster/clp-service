@@ -32,6 +32,9 @@ module.exports = {
    */    
   getCustomerByAccountNo: (accountNo) => {
     return session.run(`Match (a:${LABEL} {accountNo:{accountNoVal}})-[:belong_to]->(b:${LABEL_CUSTOMER}) RETURN a,b`, {accountNoVal: accountNo})
+    .then(service.resolve())
+    .catch(service.reject())
+    .finally(service.finally(session, driver))    
   },
 
   /**
