@@ -27,6 +27,18 @@ module.exports = {
   },
   
   /**
+   * @function get Get all the accounts
+   * @return {CLPProperty} return of object of Promise
+   */    
+  getCustomerByAccountNo: (accountNo) => {
+    
+    return session.run(`Match (a:${LABEL} {accountNo:{accountNoVal}})-[:belong_to]->(b:${LABEL_CUSTOMER}) RETURN a,b`, {accountNoVal: accountNo})
+      .then(service.resolve())
+      .catch(service.reject())
+      .finally(service.finally(session, driver))
+  },
+
+  /**
    * @function create Create a Account 
    * @param {object} data Contain the name of the account
    * @return {CLPProperty} return of object of Promise
@@ -50,5 +62,7 @@ module.exports = {
       .then(service.resolve())
       .catch(service.reject())
       .finally(service.finally(session, driver))     
-  }  
+  } 
+  
+  
 }

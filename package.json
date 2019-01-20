@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/clp-ems-lib"
+    "url": "https://github.com/bistmaster/clp-service"
   },
   "files": [
     "lib"

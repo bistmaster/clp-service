@@ -72,4 +72,4 @@ This project is private project not publish to the public npm registry.
 
 To add as a dependency, you need to add to your package.json the library as follow (with the correct #tag version):
 
-    "clp-ems-lib": "git+https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/clp-ems-lib#vX.X.X"
+    "clp-ems-lib": "git@github.com:bistmaster/clp-service.git#vX.X.XS"
